@@ -1,6 +1,8 @@
 package net.upperland.project01.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import net.upperland.project01.model.enums.ClientGender;
 
@@ -18,6 +20,8 @@ public class ClientEntity {
 
     private Timestamp updated_at;
 
+    @Valid
+    @NotBlank(message = "Name cannot be empty")
     private String name;
 
     private ClientGender gender;
