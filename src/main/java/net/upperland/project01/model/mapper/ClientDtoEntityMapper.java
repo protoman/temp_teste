@@ -12,7 +12,6 @@ public interface ClientDtoEntityMapper {
     @Mapping(target = "created_at", source = "client.created_at")
     @Mapping(target = "name", source = "client.name")
     @Mapping(target = "gender", source = "client.gender")
-    @Mapping(target = "gender", source = "client.gender")
     ClientEntity DTOToEntity(ClientDTO client);
 
     @Mapping(target = "id", source = "client.id")
