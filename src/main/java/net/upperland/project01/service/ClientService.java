@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+// This shows how we can use factory to have different implementations for data-fetch. One can use a database and other a rest client to another microservice.
+// Also, this converts the entity to a DTO as a good practice that allows you to expose only the data you want to expose in the rest results json.
+// Other services, due to this test's time constraints, will be simplified and use a more direct approach.
+
 @Service
 @RequiredArgsConstructor
 public class ClientService {
