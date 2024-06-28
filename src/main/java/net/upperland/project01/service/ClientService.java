@@ -43,6 +43,10 @@ public class ClientService {
         return getClientJpa.findClientById(id);
     }
 
+    public List<ClientEntity> findAll() throws Exception {
+        return clientRepository.findAll();
+    }
+
     public ClientEntity updateClientById(Integer id, ClientDTO clientDTO) throws Exception {
         if (!Objects.equals(id, clientDTO.getId())) {
             throw new Exception("Invalid id does not match the value from body.");

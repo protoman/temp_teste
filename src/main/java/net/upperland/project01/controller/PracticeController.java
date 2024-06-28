@@ -32,6 +32,16 @@ public class PracticeController {
         return ResponseEntity.ok().body(clientService.findClientByName(name));
     }
 
+    @GetMapping("client/id/{id}")
+    public ResponseEntity<?> findClient(@PathVariable Integer id) throws Exception {
+        return ResponseEntity.ok().body(clientService.findClientById(id));
+    }
+
+    @GetMapping("client")
+    public ResponseEntity<?> findClient() throws Exception {
+        return ResponseEntity.ok().body(clientService.findAll());
+    }
+
     @PostMapping("client")
     // TODO: handle validation error and show message
     public ResponseEntity<ClientEntity> addClient(@Valid @RequestBody ClientDTO clientDTO) {
