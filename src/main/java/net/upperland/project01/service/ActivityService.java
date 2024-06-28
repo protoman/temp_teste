@@ -2,6 +2,7 @@ package net.upperland.project01.service;
 
 import lombok.RequiredArgsConstructor;
 import net.upperland.project01.model.entity.ActivityEntity;
+import net.upperland.project01.model.entity.ProjectEntity;
 import net.upperland.project01.repositories.ActivityRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -54,6 +55,10 @@ public class ActivityService {
         ActivityEntity activity = entity.get();
         activityRepository.delete(activity);
         return activity;
+    }
+
+    public List<ActivityEntity> findAll() throws Exception {
+        return activityRepository.findAll();
     }
 
 }

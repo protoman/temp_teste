@@ -1,6 +1,7 @@
 package net.upperland.project01.service;
 
 import lombok.RequiredArgsConstructor;
+import net.upperland.project01.model.entity.ClientEntity;
 import net.upperland.project01.model.entity.ProjectEntity;
 import net.upperland.project01.repositories.ProjectRepository;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,10 @@ public class ProjectService {
         ProjectEntity project = entity.get();
         projectRepository.delete(project);
         return project;
+    }
+
+    public List<ProjectEntity> findAll() throws Exception {
+        return projectRepository.findAll();
     }
 
 }

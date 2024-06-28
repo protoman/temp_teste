@@ -27,18 +27,18 @@ public class PracticeController {
 
     // ============= CLIENT ============= //
 
-    @GetMapping("client/{name}")
-    public ResponseEntity<?> findClient(@PathVariable String name) {
+    @GetMapping("client/name/{name}")
+    public ResponseEntity<?> findClientByName(@PathVariable String name) {
         return ResponseEntity.ok().body(clientService.findClientByName(name));
     }
 
     @GetMapping("client/id/{id}")
-    public ResponseEntity<?> findClient(@PathVariable Integer id) throws Exception {
+    public ResponseEntity<?> findClientById(@PathVariable Integer id) throws Exception {
         return ResponseEntity.ok().body(clientService.findClientById(id));
     }
 
     @GetMapping("client")
-    public ResponseEntity<?> findClient() throws Exception {
+    public ResponseEntity<?> findAllClient() throws Exception {
         return ResponseEntity.ok().body(clientService.findAll());
     }
 
@@ -66,9 +66,19 @@ public class PracticeController {
 
     // ============= PROJECT ============= //
 
-    @GetMapping("project/{name}")
-    public ResponseEntity<?> findProject(@PathVariable String name) throws Exception {
+    @GetMapping("project/name/{name}")
+    public ResponseEntity<?> findProjectByName(@PathVariable String name) throws Exception {
         return ResponseEntity.ok().body(projectService.findProjectByName(name));
+    }
+
+    @GetMapping("project/id/{name}")
+    public ResponseEntity<?> findProjectById(@PathVariable Integer name) throws Exception {
+        return ResponseEntity.ok().body(projectService.findProjectById(name));
+    }
+
+    @GetMapping("project")
+    public ResponseEntity<?> findAllProject() throws Exception {
+        return ResponseEntity.ok().body(projectService.findAll());
     }
 
     @PostMapping("project")
@@ -89,9 +99,20 @@ public class PracticeController {
     // ============= ACTIVITY ============= //
 
     @GetMapping("activity/{name}")
-    public ResponseEntity<?> findActivity(@PathVariable String name) throws Exception {
+    public ResponseEntity<?> findActivityByName(@PathVariable String name) throws Exception {
         return ResponseEntity.ok().body(activityService.findActivityByName(name));
     }
+
+    @GetMapping("activity/{name}")
+    public ResponseEntity<?> findActivityById(@PathVariable Integer id) throws Exception {
+        return ResponseEntity.ok().body(activityService.findActivityById(id));
+    }
+
+    @GetMapping("project")
+    public ResponseEntity<?> findAllActivity() throws Exception {
+        return ResponseEntity.ok().body(activityService.findAll());
+    }
+
 
     @PostMapping("activity")
     public ResponseEntity<ActivityEntity> addActivity(@Valid @RequestBody ActivityEntity activity) {
