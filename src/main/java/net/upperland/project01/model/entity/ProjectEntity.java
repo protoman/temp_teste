@@ -3,6 +3,7 @@ package net.upperland.project01.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "project")
 @Data
+@Builder
 public class ProjectEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
