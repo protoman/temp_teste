@@ -1,6 +1,9 @@
 package net.upperland.project01.service;
 
 import net.upperland.project01.model.entity.ActivityEntity;
+import net.upperland.project01.model.entity.ClientEntity;
+import net.upperland.project01.model.entity.ProjectEntity;
+import net.upperland.project01.model.enums.ClientGender;
 import net.upperland.project01.repositories.ActivityRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +33,11 @@ public class ActivityServiceTest {
     }
 
     @Test
-    public void saveActivity() {
+    public void saveActivity() throws Exception {
         // given
-        ActivityEntity activityDTO = ActivityEntity.builder().id(1).name("test").build();
+        ClientEntity clientEntity = ClientEntity.builder().name("client").id(1).gender(ClientGender.FEMALE).build();
+        ProjectEntity projectEntity = ProjectEntity.builder().name("project").id(1).build();
+        ActivityEntity activityDTO = ActivityEntity.builder().id(1).name("test").client(clientEntity).project(projectEntity).build();
         given(activityRepository.save(any())).willReturn(activityDTO);
 
         // when
@@ -41,6 +46,28 @@ public class ActivityServiceTest {
         // then
         then(result.getId()).isEqualTo(activityDTO.getId());
         then(result.getName()).isEqualTo(activityDTO.getName());
+    }
+
+    @Test
+    public void saveActivityNoClient() {
+        // given
+        ProjectEntity projectEntity = ProjectEntity.builder().name("project").id(1).build();
+        ActivityEntity activityDTO = ActivityEntity.builder().id(1).name("test").client(null).project(projectEntity).build();
+        given(activityRepository.save(any())).willReturn(activityDTO);
+
+        // when / then
+        assertThrows(Exception.class, () -> activityService.saveActivity(activityDTO));
+    }
+
+    @Test
+    public void saveActivityNoProject() {
+        // given
+        ClientEntity clientEntity = ClientEntity.builder().name("client").id(1).gender(ClientGender.FEMALE).build();
+        ActivityEntity activityDTO = ActivityEntity.builder().id(1).name("test").client(clientEntity).project(null).build();
+        given(activityRepository.save(any())).willReturn(activityDTO);
+
+        // when / then
+        assertThrows(Exception.class, () -> activityService.saveActivity(activityDTO));
     }
 
     @Test
@@ -148,6 +175,40 @@ public class ActivityServiceTest {
         // then
         then(result.getId()).isEqualTo(expectedEntity.getId());
         then(result.getName()).isEqualTo(expectedEntity.getName());
+    }
+
+    @Test
+    public void updateActivityNoClient() {
+        // given
+        Integer id = 1;
+        String name = "test";
+        ActivityEntity expectedEntity = ActivityEntity.builder()
+                .id(id)
+                .name(name)
+                .build();
+        ProjectEntity projectEntity = ProjectEntity.builder().name("project").id(1).build();
+        ActivityEntity activityDTO = ActivityEntity.builder().id(1).name("test").client(null).project(projectEntity).build();
+        given(activityRepository.save(any())).willReturn(activityDTO);
+
+        // when / then
+        assertThrows(Exception.class, () -> activityService.updateActivityById(id, expectedEntity));
+    }
+
+    @Test
+    public void updateActivityNoProject() {
+        // given
+        Integer id = 1;
+        String name = "test";
+        ActivityEntity expectedEntity = ActivityEntity.builder()
+                .id(id)
+                .name(name)
+                .build();
+        ClientEntity clientEntity = ClientEntity.builder().name("client").id(1).gender(ClientGender.FEMALE).build();
+        ActivityEntity activityDTO = ActivityEntity.builder().id(1).name("test").client(clientEntity).project(null).build();
+        given(activityRepository.save(any())).willReturn(activityDTO);
+
+        // when / then
+        assertThrows(Exception.class, () -> activityService.updateActivityById(id, expectedEntity));
     }
 
     @Test

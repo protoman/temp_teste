@@ -115,7 +115,7 @@ public class PracticeController {
 
 
     @PostMapping("activity")
-    public ResponseEntity<ActivityEntity> addActivity(@Valid @RequestBody ActivityEntity activity) {
+    public ResponseEntity<ActivityEntity> addActivity(@Valid @RequestBody ActivityEntity activity) throws Exception {
         return ResponseEntity.ok().body(activityService.saveActivity(activity));
     }
 

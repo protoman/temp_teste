@@ -17,7 +17,13 @@ import java.util.Optional;
 public class ActivityService {
     private final ActivityRepository activityRepository;
 
-    public ActivityEntity saveActivity(ActivityEntity activity) {
+    public ActivityEntity saveActivity(ActivityEntity activity) throws Exception {
+        if (activity.getClient() == null) {
+            throw new Exception("Can't save without a client relationship");
+        }
+        if (activity.getProject() == null) {
+            throw new Exception("Can't save without a project relationship");
+        }
         activity.setCreated_at(Timestamp.from(Instant.now()));
         return activityRepository.save(activity);
     }
@@ -39,6 +45,12 @@ public class ActivityService {
     }
 
     public ActivityEntity updateActivityById(Integer id, ActivityEntity activity) throws Exception {
+        if (activity.getClient() == null) {
+            throw new Exception("Can't save without a client relationship");
+        }
+        if (activity.getProject() == null) {
+            throw new Exception("Can't save without a project relationship");
+        }
         Optional<ActivityEntity> result = activityRepository.findById(id);
         if (result.isEmpty()) {
             throw new Exception("Activity not found");

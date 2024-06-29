@@ -31,5 +31,5 @@ public class ActivityEntity {
 
     @ManyToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id")
-    private ClientEntity project;
+    private ProjectEntity project;
 }
