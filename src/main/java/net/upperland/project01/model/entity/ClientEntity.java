@@ -3,6 +3,7 @@ package net.upperland.project01.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 import net.upperland.project01.model.enums.ClientGender;
 
@@ -11,6 +12,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "client")
 @Data
+@Builder
 public class ClientEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)

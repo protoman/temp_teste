@@ -28,7 +28,7 @@ public class PracticeController {
     // ============= CLIENT ============= //
 
     @GetMapping("client/name/{name}")
-    public ResponseEntity<?> findClientByName(@PathVariable String name) {
+    public ResponseEntity<?> findClientByName(@PathVariable String name) throws Exception {
         return ResponseEntity.ok().body(clientService.findClientByName(name));
     }
 
@@ -103,12 +103,12 @@ public class PracticeController {
         return ResponseEntity.ok().body(activityService.findActivityByName(name));
     }
 
-    @GetMapping("activity/{name}")
+    @GetMapping("activity/{id}")
     public ResponseEntity<?> findActivityById(@PathVariable Integer id) throws Exception {
-        return ResponseEntity.ok().body(activityService.findActivityById(id));
+        return ResponseEntity.ok().body(activityService.findById(id));
     }
 
-    @GetMapping("project")
+    @GetMapping("activity")
     public ResponseEntity<?> findAllActivity() throws Exception {
         return ResponseEntity.ok().body(activityService.findAll());
     }

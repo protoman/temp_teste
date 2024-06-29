@@ -8,6 +8,7 @@ import net.upperland.project01.repositories.ClientRepository;
 import net.upperland.project01.service.factory.GetClientServiceJpa;
 import net.upperland.project01.service.factory.GetClientServiceRest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -33,9 +34,11 @@ public class ClientService {
         return clientRepository.save(entity);
     }
 
-    public ClientDTO findClientByName(String name) {
+    public ClientDTO findClientByName(String name) throws Exception {
         List<ClientEntity> result = clientRepository.findByName(name);
-        // TODO - handle errors like empty list
+        if (CollectionUtils.isEmpty(result)) {
+            throw new Exception("Object not found for the given id.");
+        }
         return clientDtoEntityMapper.EntityToDTO(result.get(0));
     }
 
@@ -43,7 +46,7 @@ public class ClientService {
         return getClientJpa.findClientById(id);
     }
 
-    public List<ClientEntity> findAll() throws Exception {
+    public List<ClientEntity> findAll() {
         return clientRepository.findAll();
     }
 
@@ -51,7 +54,10 @@ public class ClientService {
         if (!Objects.equals(id, clientDTO.getId())) {
             throw new Exception("Invalid id does not match the value from body.");
         }
-        // TODO: ensure we use the correct id, and not empty
+        Optional<ClientEntity> current = clientRepository.findById(id);
+        if (current.isEmpty()) {
+            throw new Exception("Object not found for the given id.");
+        }
         ClientEntity entity = clientDtoEntityMapper.DTOToEntity(clientDTO);
         entity.setUpdated_at(Timestamp.from(Instant.now()));
         return clientRepository.save(entity);

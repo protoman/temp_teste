@@ -30,7 +30,7 @@ public class ActivityService {
         return result.get(0);
     }
 
-    public ActivityEntity findActivityById(Integer id) throws Exception {
+    public ActivityEntity findById(Integer id) throws Exception {
         Optional<ActivityEntity> result = activityRepository.findById(id);
         if (result.isEmpty()) {
             throw new Exception("Activity not found");
