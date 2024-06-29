@@ -2,12 +2,14 @@ package net.upperland.project01.model.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 import net.upperland.project01.model.enums.ClientGender;
 
 import java.sql.Timestamp;
 
 @Data
+@Builder
 public class ClientDTO {
 
     private Integer id;
